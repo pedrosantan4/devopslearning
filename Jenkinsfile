@@ -27,7 +27,7 @@ pipeline {
         stage('Start Services') {
             steps {
                 sh '''
-                    docker-compose up -d
+                    docker compose up -d
                     sleep 15  # Aguarda os serviços iniciarem
                 '''
             }
@@ -65,7 +65,7 @@ pipeline {
     
     post {
         always {
-            sh 'docker-compose down'
+            sh 'docker compose down'
             cleanWs()
         }
     }
