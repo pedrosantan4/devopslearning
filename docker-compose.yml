@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  flask:
+    build:
+      context: .  # Aponta para o diretório onde está o Dockerfile
+      dockerfile: app/Dockerfile  # Define o nome do Dockerfile se necessário (no caso é o padrão)
+    volumes:
+      - ./app:/app  # Garante que os arquivos locais do app sejam montados no container
+    ports:
+      - "5000:5000"  # Mapeia a porta do Flask
+    environment:
+      - FLASK_APP=app.py
+      - FLASK_ENV=development
+    networks:
+      - minio_network
+
+  minio:
+    image: quay.io/minio/minio
+    container_name: minio
+    environment:
+      - MINIO_ROOT_USER=minioadmin
+      - MINIO_ROOT_PASSWORD=minioadmin
+    volumes:
+      - minio_data:/data
+    ports:
+      - "9000:9000"  # Porta para acessar o Minio
+      - "9001:9001"  # Porta do console do Minio
+    networks:
+      - minio_network
+    command: server /data --console-address ":9001"
+
+networks:
+  minio_network:
+    driver: bridge
+
+volumes:
+  minio_data:
+    driver: local
