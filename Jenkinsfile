@@ -15,7 +15,24 @@ pipeline {
             }
         }
         
+        stage('Check README Changes') {
+            steps {
+                script {
+                    def changedFiles = sh(
+                        script: 'git diff --name-only HEAD^ HEAD',
+                        returnStdout: true
+                    ).trim().split('\n')
+                    
+                    def isReadmeOnly = changedFiles.size() == 1 && changedFiles[0] == 'README.md'
+                    env.SKIP_TESTS = isReadmeOnly.toString()
+                }
+            }
+        }
+        
         stage('Setup Python') {
+            when {
+                expression { return env.SKIP_TESTS != 'true' }
+            }
             steps {
                 sh '''
                     python3 -m pip install --upgrade pip
@@ -25,6 +42,9 @@ pipeline {
         }
         
         stage('Start Services') {
+            when {
+                expression { return env.SKIP_TESTS != 'true' }
+            }
             steps {
                 sh '''
                     docker compose up -d
@@ -34,6 +54,9 @@ pipeline {
         }
         
         stage('Check Services Health') {
+            when {
+                expression { return env.SKIP_TESTS != 'true' }
+            }
             steps {
                 sh '''
                     # Verifica se o MinIO está respondendo
@@ -45,6 +68,9 @@ pipeline {
         }
         
         stage('Run Tests') {
+            when {
+                expression { return env.SKIP_TESTS != 'true' }
+            }
             steps {
                 sh 'python3 boto_test.py'
             }
@@ -53,6 +79,7 @@ pipeline {
         stage('Deploy to Kubernetes') {
             when {
                 branch 'main'
+                expression { return env.SKIP_TESTS != 'true' }
             }
             steps {
                 sh '''
@@ -65,7 +92,11 @@ pipeline {
     
     post {
         always {
-            sh 'docker compose down'
+            script {
+                if (env.SKIP_TESTS != 'true') {
+                    sh 'docker compose down'
+                }
+            }
             cleanWs()
         }
     }
