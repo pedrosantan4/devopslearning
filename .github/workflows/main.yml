@@ -9,20 +9,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    services:
-      minio:
-        image: minio/minio
-        ports:
-          - 9000:9000
-        env:
-          MINIO_ROOT_USER: minioadmin
-          MINIO_ROOT_PASSWORD: minioadmin
-        options: >-
-          --health-cmd "curl -f http://localhost:9000/minio/health/live"
-          --health-interval 30s
-          --health-timeout 10s
-          --health-retries 5
-
+    
     steps:
     - uses: actions/checkout@v2
     
@@ -36,22 +23,25 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     
-    - name: Wait for MinIO to be ready
+    - name: Start Docker Compose
       run: |
-        for i in {1..30}; do
-          if curl -s http://localhost:9000/minio/health/live > /dev/null; then
-            echo "MinIO is ready!"
-            exit 0
-          fi
-          echo "Waiting for MinIO to be ready... ($i/30)"
-          sleep 2
-        done
-        echo "MinIO failed to start"
-        exit 1
+        docker-compose up -d
+        sleep 15  # Aguarda os serviços iniciarem
+    
+    - name: Check services health
+      run: |
+        # Verifica se o MinIO está respondendo
+        curl -f http://localhost:9000/minio/health/live || exit 1
+        # Verifica se o Flask está respondendo
+        curl -f http://localhost:5000/health || exit 1
     
     - name: Run tests
       run: |
         python boto_test.py
+    
+    - name: Stop Docker Compose
+      if: always()
+      run: docker-compose down
     
   deploy:
     needs: test
