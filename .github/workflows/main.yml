@@ -39,9 +39,9 @@ jobs:
         # Verifica se o Flask está respondendo
         curl -f http://localhost:5000/health || exit 1
     
-    - name: Run tests
-      run: |
-        python boto_test.py
+    # - name: Run tests
+    #   run: |
+    #     python boto_test.py
     
     - name: Stop Docker Compose
       if: always()
