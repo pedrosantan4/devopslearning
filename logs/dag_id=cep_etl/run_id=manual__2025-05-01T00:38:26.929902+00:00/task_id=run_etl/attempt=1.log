@@ -1,0 +1,30 @@
+[2025-05-01T00:38:29.083+0000] {taskinstance.py:1157} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: cep_etl.run_etl manual__2025-05-01T00:38:26.929902+00:00 [queued]>
+[2025-05-01T00:38:29.096+0000] {taskinstance.py:1157} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: cep_etl.run_etl manual__2025-05-01T00:38:26.929902+00:00 [queued]>
+[2025-05-01T00:38:29.097+0000] {taskinstance.py:1359} INFO - Starting attempt 1 of 1
+[2025-05-01T00:38:29.117+0000] {taskinstance.py:1380} INFO - Executing <Task(PythonOperator): run_etl> on 2025-05-01 00:38:26.929902+00:00
+[2025-05-01T00:38:29.126+0000] {standard_task_runner.py:57} INFO - Started process 185 to run task
+[2025-05-01T00:38:29.130+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'cep_etl', 'run_etl', 'manual__2025-05-01T00:38:26.929902+00:00', '--job-id', '9', '--raw', '--subdir', 'DAGS_FOLDER/cep_etl_dag.py', '--cfg-path', '/tmp/tmpus7yralp']
+[2025-05-01T00:38:29.134+0000] {standard_task_runner.py:85} INFO - Job 9: Subtask run_etl
+[2025-05-01T00:38:29.193+0000] {task_command.py:415} INFO - Running <TaskInstance: cep_etl.run_etl manual__2025-05-01T00:38:26.929902+00:00 [running]> on host 113230c7e558
+[2025-05-01T00:38:29.319+0000] {taskinstance.py:1660} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='cep_etl' AIRFLOW_CTX_TASK_ID='run_etl' AIRFLOW_CTX_EXECUTION_DATE='2025-05-01T00:38:26.929902+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-05-01T00:38:26.929902+00:00'
+[2025-05-01T00:38:29.321+0000] {cep_finder.py:25} WARNING - Arquivo de configuração não encontrado: config/ceps.json
+[2025-05-01T00:38:29.446+0000] {logging_mixin.py:151} INFO - Processando 3 CEPs
+[2025-05-01T00:38:29.447+0000] {logging_mixin.py:151} INFO - Processando CEP: 01001000 (São Paulo - Centro)
+[2025-05-01T00:38:29.447+0000] {cep_extractor.py:27} INFO - Extraindo dados do CEP: 01001000
+[2025-05-01T00:38:30.062+0000] {cep_extractor.py:38} INFO - Dados extraídos com sucesso
+[2025-05-01T00:38:30.063+0000] {logging_mixin.py:151} INFO - Processando CEP: 13010000 (Campinas - Centro)
+[2025-05-01T00:38:30.064+0000] {cep_extractor.py:27} INFO - Extraindo dados do CEP: 13010000
+[2025-05-01T00:38:30.458+0000] {cep_extractor.py:38} INFO - Dados extraídos com sucesso
+[2025-05-01T00:38:30.460+0000] {logging_mixin.py:151} INFO - Processando CEP: 11010000 (Santos - Centro)
+[2025-05-01T00:38:30.461+0000] {cep_extractor.py:27} INFO - Extraindo dados do CEP: 11010000
+[2025-05-01T00:38:31.003+0000] {cep_extractor.py:38} INFO - Dados extraídos com sucesso
+[2025-05-01T00:38:31.005+0000] {logging_mixin.py:151} INFO - Transformando dados...
+[2025-05-01T00:38:31.007+0000] {logging_mixin.py:151} INFO - Carregando dados...
+[2025-05-01T00:38:31.010+0000] {cep_loader.py:40} INFO - Fazendo upload dos dados para o MinIO: 20250501_cep_data.csv
+[2025-05-01T00:38:31.021+0000] {cep_loader.py:46} INFO - Criando bucket: cep-data
+[2025-05-01T00:38:31.037+0000] {cep_loader.py:55} INFO - Dados carregados com sucesso!
+[2025-05-01T00:38:31.037+0000] {logging_mixin.py:151} INFO - ETL concluído com sucesso!
+[2025-05-01T00:38:31.038+0000] {python.py:194} INFO - Done. Returned value was: None
+[2025-05-01T00:38:31.050+0000] {taskinstance.py:1398} INFO - Marking task as SUCCESS. dag_id=cep_etl, task_id=run_etl, execution_date=20250501T003826, start_date=20250501T003829, end_date=20250501T003831
+[2025-05-01T00:38:31.110+0000] {local_task_job_runner.py:228} INFO - Task exited with return code 0
+[2025-05-01T00:38:31.135+0000] {taskinstance.py:2776} INFO - 0 downstream tasks scheduled from follow-on schedule check

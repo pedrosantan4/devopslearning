@@ -6,6 +6,7 @@ pipeline {
         MINIO_ACCESS_KEY = 'minioadmin'
         MINIO_SECRET_KEY = 'minioadmin'
         FLASK_ENDPOINT = 'http://flask:5000'
+        AIRFLOW_HOME = '/opt/airflow'
     }
     
     stages {
@@ -48,7 +49,7 @@ pipeline {
             steps {
                 sh '''
                     docker compose up -d
-                    sleep 15  # Aguarda os serviços iniciarem
+                    sleep 30  # Aguarda os serviços iniciarem
                 '''
             }
         }
@@ -61,18 +62,88 @@ pipeline {
                 sh '''
                     # Verifica se o MinIO está respondendo
                     curl -f http://localhost:9000/minio/health/live || exit 1
-                    # Verifica se o Flask está respondendo
-                    curl -f http://localhost:5000/health || exit 1
+                    # Verifica se o Airflow está respondendo
+                    curl -f http://localhost:8080/health || exit 1
                 '''
             }
         }
         
-        stage('Run Tests') {
+        stage('Run ETL Test') {
             when {
                 expression { return env.SKIP_TESTS != 'true' }
             }
             steps {
-                sh 'python3 boto_test.py'
+                script {
+                    // Executa o ETL manualmente
+                    sh '''
+                        python3 -c "
+from etl.extractors.cep_extractor import CEPExtractor
+from etl.transformers.cep_transformer import CEPTransformer
+from etl.loaders.cep_loader import CEPLoader
+from etl.utils.cep_finder import CEPFinder
+
+# Inicializa componentes
+cep_finder = CEPFinder()
+extractor = CEPExtractor()
+transformer = CEPTransformer()
+loader = CEPLoader()
+
+# Obtém CEPs de SP
+ceps = cep_finder.find_ceps_by_state('SP')
+if ceps.empty:
+    print('Nenhum CEP encontrado para o estado SP')
+    exit(1)
+
+print(f'Processando {len(ceps)} CEPs')
+
+# Lista para armazenar todos os dados
+all_data = []
+
+# Processa cada CEP
+for _, cep_info in ceps.iterrows():
+    try:
+        cep = cep_info['cep']
+        nome = cep_info['nome']
+        
+        print(f'Processando CEP: {cep} ({nome})')
+        
+        # Extrai dados
+        raw_data = extractor.extract_cep_data(cep)
+        
+        if not raw_data:
+            print(f'Nenhum dado encontrado para o CEP {cep}')
+            continue
+        
+        # Adiciona informações do local
+        raw_data['nome_local'] = nome
+        all_data.append(raw_data)
+        
+    except Exception as e:
+        print(f'Erro ao processar CEP {cep}: {str(e)}')
+        continue
+
+if not all_data:
+    print('Nenhum dado coletado para processar')
+    exit(1)
+
+# Transforma os dados
+print('Transformando dados...')
+df = transformer.transform_batch(all_data)
+
+if df.empty:
+    print('Nenhum dado válido após transformação')
+    exit(1)
+
+# Carrega os dados
+print('Carregando dados...')
+if not loader.load_data(df):
+    print('Falha ao carregar dados')
+    exit(1)
+
+print('ETL concluído com sucesso!')
+"
+                    '''
+                }
             }
         }
         

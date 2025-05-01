@@ -1,0 +1,161 @@
+[2025-05-01T00:25:23.684+0000] {taskinstance.py:1157} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: cep_etl.run_etl scheduled__2025-04-30T00:25:22.218677+00:00 [queued]>
+[2025-05-01T00:25:23.700+0000] {taskinstance.py:1157} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: cep_etl.run_etl scheduled__2025-04-30T00:25:22.218677+00:00 [queued]>
+[2025-05-01T00:25:23.700+0000] {taskinstance.py:1359} INFO - Starting attempt 1 of 2
+[2025-05-01T00:25:23.719+0000] {taskinstance.py:1380} INFO - Executing <Task(PythonOperator): run_etl> on 2025-04-30 00:25:22.218677+00:00
+[2025-05-01T00:25:23.727+0000] {standard_task_runner.py:57} INFO - Started process 366 to run task
+[2025-05-01T00:25:23.731+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'cep_etl', 'run_etl', 'scheduled__2025-04-30T00:25:22.218677+00:00', '--job-id', '7', '--raw', '--subdir', 'DAGS_FOLDER/cep_etl_dag.py', '--cfg-path', '/tmp/tmp1dygitqe']
+[2025-05-01T00:25:23.734+0000] {standard_task_runner.py:85} INFO - Job 7: Subtask run_etl
+[2025-05-01T00:25:23.794+0000] {task_command.py:415} INFO - Running <TaskInstance: cep_etl.run_etl scheduled__2025-04-30T00:25:22.218677+00:00 [running]> on host 113230c7e558
+[2025-05-01T00:25:23.900+0000] {taskinstance.py:1660} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='cep_etl' AIRFLOW_CTX_TASK_ID='run_etl' AIRFLOW_CTX_EXECUTION_DATE='2025-04-30T00:25:22.218677+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-04-30T00:25:22.218677+00:00'
+[2025-05-01T00:25:23.902+0000] {cep_finder.py:25} WARNING - Arquivo de configuração não encontrado: config/ceps.json
+[2025-05-01T00:25:24.026+0000] {logging_mixin.py:151} INFO - Processando 3 CEPs
+[2025-05-01T00:25:24.027+0000] {logging_mixin.py:151} INFO - Processando CEP: 01001000 (São Paulo - Centro)
+[2025-05-01T00:25:24.027+0000] {cep_extractor.py:27} INFO - Extraindo dados do CEP: 01001000
+[2025-05-01T00:25:24.556+0000] {cep_extractor.py:38} INFO - Dados extraídos com sucesso
+[2025-05-01T00:25:24.558+0000] {logging_mixin.py:151} INFO - Processando CEP: 13010000 (Campinas - Centro)
+[2025-05-01T00:25:24.559+0000] {cep_extractor.py:27} INFO - Extraindo dados do CEP: 13010000
+[2025-05-01T00:25:25.039+0000] {cep_extractor.py:38} INFO - Dados extraídos com sucesso
+[2025-05-01T00:25:25.042+0000] {logging_mixin.py:151} INFO - Processando CEP: 11010000 (Santos - Centro)
+[2025-05-01T00:25:25.043+0000] {cep_extractor.py:27} INFO - Extraindo dados do CEP: 11010000
+[2025-05-01T00:25:25.572+0000] {cep_extractor.py:38} INFO - Dados extraídos com sucesso
+[2025-05-01T00:25:25.574+0000] {logging_mixin.py:151} INFO - Transformando dados...
+[2025-05-01T00:25:25.577+0000] {logging_mixin.py:151} INFO - Carregando dados...
+[2025-05-01T00:25:25.582+0000] {cep_loader.py:40} INFO - Fazendo upload dos dados para o MinIO: 20250501_cep_data.csv
+[2025-05-01T00:30:32.444+0000] {cep_loader.py:46} INFO - Criando bucket: cep-data
+[2025-05-01T00:35:41.166+0000] {cep_loader.py:59} ERROR - Erro ao carregar dados: Connect timeout on endpoint URL: "http://172.21.0.3:9000/cep-data"
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/urllib3/connection.py", line 174, in _new_conn
+    conn = connection.create_connection(
+  File "/home/airflow/.local/lib/python3.8/site-packages/urllib3/util/connection.py", line 95, in create_connection
+    raise err
+  File "/home/airflow/.local/lib/python3.8/site-packages/urllib3/util/connection.py", line 85, in create_connection
+    sock.connect(sa)
+socket.timeout: timed out
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/botocore/httpsession.py", line 465, in send
+    urllib_response = conn.urlopen(
+  File "/home/airflow/.local/lib/python3.8/site-packages/urllib3/connectionpool.py", line 798, in urlopen
+    retries = retries.increment(
+  File "/home/airflow/.local/lib/python3.8/site-packages/urllib3/util/retry.py", line 525, in increment
+    raise six.reraise(type(error), error, _stacktrace)
+  File "/home/airflow/.local/lib/python3.8/site-packages/urllib3/packages/six.py", line 770, in reraise
+    raise value
+  File "/home/airflow/.local/lib/python3.8/site-packages/urllib3/connectionpool.py", line 714, in urlopen
+    httplib_response = self._make_request(
+  File "/home/airflow/.local/lib/python3.8/site-packages/urllib3/connectionpool.py", line 415, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "/home/airflow/.local/lib/python3.8/site-packages/botocore/awsrequest.py", line 96, in request
+    rval = super().request(method, url, body, headers, *args, **kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/urllib3/connection.py", line 244, in request
+    super(HTTPConnection, self).request(method, url, body=body, headers=headers)
+  File "/usr/local/lib/python3.8/http/client.py", line 1256, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "/usr/local/lib/python3.8/http/client.py", line 1302, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "/usr/local/lib/python3.8/http/client.py", line 1251, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "/home/airflow/.local/lib/python3.8/site-packages/botocore/awsrequest.py", line 123, in _send_output
+    self.send(msg)
+  File "/home/airflow/.local/lib/python3.8/site-packages/botocore/awsrequest.py", line 223, in send
+    return super().send(str)
+  File "/usr/local/lib/python3.8/http/client.py", line 951, in send
+    self.connect()
+  File "/home/airflow/.local/lib/python3.8/site-packages/urllib3/connection.py", line 205, in connect
+    conn = self._new_conn()
+  File "/home/airflow/.local/lib/python3.8/site-packages/urllib3/connection.py", line 179, in _new_conn
+    raise ConnectTimeoutError(
+urllib3.exceptions.ConnectTimeoutError: (<botocore.awsrequest.AWSHTTPConnection object at 0x74ac779bae80>, 'Connection to 172.21.0.3 timed out. (connect timeout=60)')
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/airflow/project/etl/loaders/cep_loader.py", line 44, in load_data
+    self.s3.head_bucket(Bucket=bucket)
+  File "/home/airflow/.local/lib/python3.8/site-packages/botocore/client.py", line 535, in _api_call
+    return self._make_api_call(operation_name, kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/botocore/client.py", line 963, in _make_api_call
+    http, parsed_response = self._make_request(
+  File "/home/airflow/.local/lib/python3.8/site-packages/botocore/client.py", line 986, in _make_request
+    return self._endpoint.make_request(operation_model, request_dict)
+  File "/home/airflow/.local/lib/python3.8/site-packages/botocore/endpoint.py", line 119, in make_request
+    return self._send_request(request_dict, operation_model)
+  File "/home/airflow/.local/lib/python3.8/site-packages/botocore/endpoint.py", line 202, in _send_request
+    while self._needs_retry(
+  File "/home/airflow/.local/lib/python3.8/site-packages/botocore/endpoint.py", line 354, in _needs_retry
+    responses = self._event_emitter.emit(
+  File "/home/airflow/.local/lib/python3.8/site-packages/botocore/hooks.py", line 412, in emit
+    return self._emitter.emit(aliased_event_name, **kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/botocore/hooks.py", line 256, in emit
+    return self._emit(event_name, kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/botocore/hooks.py", line 239, in _emit
+    response = handler(**kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/botocore/retryhandler.py", line 207, in __call__
+    if self._checker(**checker_kwargs):
+  File "/home/airflow/.local/lib/python3.8/site-packages/botocore/retryhandler.py", line 284, in __call__
+    should_retry = self._should_retry(
+  File "/home/airflow/.local/lib/python3.8/site-packages/botocore/retryhandler.py", line 320, in _should_retry
+    return self._checker(attempt_number, response, caught_exception)
+  File "/home/airflow/.local/lib/python3.8/site-packages/botocore/retryhandler.py", line 363, in __call__
+    checker_response = checker(
+  File "/home/airflow/.local/lib/python3.8/site-packages/botocore/retryhandler.py", line 247, in __call__
+    return self._check_caught_exception(
+  File "/home/airflow/.local/lib/python3.8/site-packages/botocore/retryhandler.py", line 416, in _check_caught_exception
+    raise caught_exception
+  File "/home/airflow/.local/lib/python3.8/site-packages/botocore/endpoint.py", line 281, in _do_get_response
+    http_response = self._send(request)
+  File "/home/airflow/.local/lib/python3.8/site-packages/botocore/endpoint.py", line 377, in _send
+    return self.http_session.send(request)
+  File "/home/airflow/.local/lib/python3.8/site-packages/botocore/httpsession.py", line 500, in send
+    raise ConnectTimeoutError(endpoint_url=request.url, error=e)
+botocore.exceptions.ConnectTimeoutError: Connect timeout on endpoint URL: "http://172.21.0.3:9000/cep-data"
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/airflow/project/etl/loaders/cep_loader.py", line 47, in load_data
+    self.s3.create_bucket(Bucket=bucket)
+  File "/home/airflow/.local/lib/python3.8/site-packages/botocore/client.py", line 535, in _api_call
+    return self._make_api_call(operation_name, kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/botocore/client.py", line 963, in _make_api_call
+    http, parsed_response = self._make_request(
+  File "/home/airflow/.local/lib/python3.8/site-packages/botocore/client.py", line 986, in _make_request
+    return self._endpoint.make_request(operation_model, request_dict)
+  File "/home/airflow/.local/lib/python3.8/site-packages/botocore/endpoint.py", line 119, in make_request
+    return self._send_request(request_dict, operation_model)
+  File "/home/airflow/.local/lib/python3.8/site-packages/botocore/endpoint.py", line 202, in _send_request
+    while self._needs_retry(
+  File "/home/airflow/.local/lib/python3.8/site-packages/botocore/endpoint.py", line 354, in _needs_retry
+    responses = self._event_emitter.emit(
+  File "/home/airflow/.local/lib/python3.8/site-packages/botocore/hooks.py", line 412, in emit
+    return self._emitter.emit(aliased_event_name, **kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/botocore/hooks.py", line 256, in emit
+    return self._emit(event_name, kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/botocore/hooks.py", line 239, in _emit
+    response = handler(**kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/botocore/retryhandler.py", line 207, in __call__
+    if self._checker(**checker_kwargs):
+  File "/home/airflow/.local/lib/python3.8/site-packages/botocore/retryhandler.py", line 284, in __call__
+    should_retry = self._should_retry(
+  File "/home/airflow/.local/lib/python3.8/site-packages/botocore/retryhandler.py", line 320, in _should_retry
+    return self._checker(attempt_number, response, caught_exception)
+  File "/home/airflow/.local/lib/python3.8/site-packages/botocore/retryhandler.py", line 363, in __call__
+    checker_response = checker(
+  File "/home/airflow/.local/lib/python3.8/site-packages/botocore/retryhandler.py", line 247, in __call__
+    return self._check_caught_exception(
+  File "/home/airflow/.local/lib/python3.8/site-packages/botocore/retryhandler.py", line 416, in _check_caught_exception
+    raise caught_exception
+  File "/home/airflow/.local/lib/python3.8/site-packages/botocore/endpoint.py", line 281, in _do_get_response
+    http_response = self._send(request)
+  File "/home/airflow/.local/lib/python3.8/site-packages/botocore/endpoint.py", line 377, in _send
+    return self.http_session.send(request)
+  File "/home/airflow/.local/lib/python3.8/site-packages/botocore/httpsession.py", line 500, in send
+    raise ConnectTimeoutError(endpoint_url=request.url, error=e)
+botocore.exceptions.ConnectTimeoutError: Connect timeout on endpoint URL: "http://172.21.0.3:9000/cep-data"
+[2025-05-01T00:35:41.173+0000] {logging_mixin.py:151} INFO - Falha ao carregar dados
+[2025-05-01T00:35:41.173+0000] {python.py:194} INFO - Done. Returned value was: None
+[2025-05-01T00:35:41.189+0000] {taskinstance.py:1398} INFO - Marking task as SUCCESS. dag_id=cep_etl, task_id=run_etl, execution_date=20250430T002522, start_date=20250501T002523, end_date=20250501T003541
+[2025-05-01T00:35:41.242+0000] {local_task_job_runner.py:228} INFO - Task exited with return code 0
+[2025-05-01T00:35:41.269+0000] {taskinstance.py:2776} INFO - 0 downstream tasks scheduled from follow-on schedule check

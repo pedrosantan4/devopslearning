@@ -1,189 +1,174 @@
-# Projeto DevOps com Flask, MinIO e Kubernetes
+# Projeto ETL de CEPs
 
-Este projeto demonstra uma aplicação moderna de armazenamento de arquivos usando Flask, MinIO (compatível com S3) e Kubernetes, com pipelines de CI/CD implementados no GitHub Actions e Jenkins.
+Este projeto implementa um pipeline ETL (Extract, Transform, Load) para dados de CEPs brasileiros, utilizando Apache Airflow para orquestração e MinIO para armazenamento.
 
-## 🎯 Objetivos do Projeto
+## 🏗️ Arquitetura
 
-Este projeto foi desenvolvido com os seguintes objetivos:
+O projeto é composto por:
 
-1. **Prática com S3/MinIO**:
-   - Aprender a criar e gerenciar buckets
-   - Implementar upload e download de arquivos
-   - Entender a API compatível com S3
-   - Gerenciar permissões e acesso
+### 1. ETL Pipeline
+- **Extração**: Busca dados de CEPs através da API ViaCEP
+- **Transformação**: Processa e estrutura os dados
+- **Carregamento**: Armazena os dados no MinIO
 
-2. **Desenvolvimento com Flask**:
-   - Criar APIs RESTful
-   - Implementar endpoints para manipulação de arquivos
-   - Praticar boas práticas de desenvolvimento Python
-   - Integrar com serviços externos (MinIO)
+### 2. Infraestrutura
+- **Apache Airflow**: Orquestração do pipeline
+- **MinIO**: Armazenamento de objetos (S3-compatible)
+- **Docker**: Containerização dos serviços
 
-3. **DevOps e Infraestrutura**:
-   - Containerização com Docker
-   - Orquestração com Kubernetes
-   - Implementação de CI/CD
-   - Automação de processos
+## 📁 Estrutura do Projeto
 
-4. **Aprendizado Prático**:
-   - Hands-on com tecnologias modernas
-   - Experiência com pipelines de CI/CD
-   - Prática com orquestração de containers
-   - Desenvolvimento de APIs em produção
-
-## 🚀 Tecnologias Utilizadas
-
-- **Backend**: Flask (Python)
-- **Armazenamento**: MinIO (S3-compatible)
-- **Containerização**: Docker & Docker Compose
-- **Orquestração**: Kubernetes
-- **CI/CD**: GitHub Actions & Jenkins
-- **Infraestrutura**: AWS EKS (Elastic Kubernetes Service)
-
-## 📋 Pré-requisitos
-
-- Python 3.9+
-- Docker e Docker Compose
-- kubectl (para deploy no Kubernetes)
-- AWS CLI (para deploy no EKS)
-
-## 🛠️ Instalação
-
-1. Clone o repositório:
-```bash
-git clone https://github.com/pedrosantan4/devopslearning.git
-cd devopslearning
+```
+.
+├── dags/                    # DAGs do Airflow
+│   └── cep_etl_dag.py      # DAG principal do ETL de CEPs
+├── etl/                     # Código do pipeline ETL
+│   ├── extractors/         # Módulos de extração
+│   │   └── cep_extractor.py
+│   ├── transformers/       # Módulos de transformação
+│   │   └── cep_transformer.py
+│   ├── loaders/           # Módulos de carregamento
+│   │   └── cep_loader.py
+│   └── utils/             # Utilitários
+│       └── cep_finder.py
+├── docker-compose.yml      # Configuração dos containers
+└── requirements.txt        # Dependências Python
 ```
 
-2. Instale as dependências Python:
+## 🚀 Como Executar
+
+### Pré-requisitos
+- Docker
+- Docker Compose
+- Python 3.8+
+
+### 1. Clone o Repositório
+```bash
+git clone [URL_DO_REPOSITÓRIO]
+cd [NOME_DO_DIRETÓRIO]
+```
+
+### 2. Instale as Dependências
 ```bash
 pip install -r requirements.txt
 ```
 
-3. Inicie os serviços com Docker Compose:
+### 3. Inicie os Serviços
 ```bash
-docker compose up -d
+docker-compose up -d
 ```
 
-## 🏗️ Estrutura do Projeto
+### 4. Acesse as Interfaces
+- Airflow: http://localhost:8080
+  - Usuário: airflow
+  - Senha: airflow
+- MinIO: http://localhost:9001
+  - Usuário: minioadmin
+  - Senha: minioadmin
 
+## 🔄 Pipeline ETL
+
+### 1. Extração (CEPExtractor)
+- Busca dados de CEPs através da API ViaCEP
+- Endpoint: https://viacep.com.br/ws/{cep}/json/
+- Dados extraídos: CEP, logradouro, complemento, bairro, localidade, UF
+
+### 2. Transformação (CEPTransformer)
+- Processa os dados brutos
+- Adiciona metadados (timestamp, fonte)
+- Valida e limpa os dados
+- Estrutura em DataFrame pandas
+
+### 3. Carregamento (CEPLoader)
+- Conecta ao MinIO (endpoint: http://minio:9000)
+- Cria bucket `cep-data` se não existir
+- Salva arquivo CSV no formato: `raw/YYYYMMDD_cep_data.csv`
+
+## 📊 DAG do Airflow
+
+### Configuração
+- Nome: `cep_etl`
+- Schedule: Diário
+- Timeout: 30 segundos
+- Retries: 0
+
+### Tasks
+1. `run_etl`: Executa o pipeline completo
+   - Busca 3 CEPs de SP
+   - Extrai dados
+   - Transforma
+   - Carrega no MinIO
+
+## 🔍 Monitoramento
+
+### Logs
+- Airflow: Interface web (http://localhost:8080)
+- MinIO: Interface web (http://localhost:9001)
+
+### Verificação de Dados
+1. Acesse MinIO (http://localhost:9001)
+2. Navegue até o bucket `cep-data`
+3. Verifique o arquivo mais recente em `raw/`
+
+## 🛠️ Desenvolvimento
+
+### Estrutura de Código
+- **CEPExtractor**: Responsável pela extração de dados
+- **CEPTransformer**: Processa e estrutura os dados
+- **CEPLoader**: Gerencia o carregamento no MinIO
+- **CEPFinder**: Utilitário para buscar CEPs por estado
+
+### Convenções
+- Nomes de classes: PascalCase
+- Nomes de funções: snake_case
+- Documentação: Docstrings em português
+- Logs: Nível INFO para operações normais, ERROR para falhas
+
+## 🔒 Segurança
+
+### Credenciais
+- MinIO:
+  - Access Key: minioadmin
+  - Secret Key: minioadmin
+- Airflow:
+  - Usuário: airflow
+  - Senha: airflow
+
+### Boas Práticas
+- Credenciais em variáveis de ambiente
+- Logs sem informações sensíveis
+- Timeouts configurados
+- Tratamento de erros
+
+## 🧪 Testes
+
+### Execução Manual
+```bash
+python etl/run_etl.py
 ```
-.
-├── app/
-│   └── app.py              # Aplicação Flask
-├── k8s/
-│   ├── flask-deployment.yaml   # Manifesto Kubernetes para Flask
-│   └── minio-deployment.yaml   # Manifesto Kubernetes para MinIO
-├── .github/
-│   └── workflows/
-│       └── main.yml        # Pipeline do GitHub Actions
-├── Jenkinsfile            # Pipeline do Jenkins
-├── docker-compose.yml     # Configuração do Docker Compose
-├── Dockerfile            # Build da imagem Flask
-└── requirements.txt      # Dependências Python
-```
 
-## 🔄 Fluxo de Funcionamento
-
-1. **Aplicação Flask**:
-   - API REST para upload de arquivos
-   - Endpoint `/health` para verificação de saúde
-   - Integração com MinIO para armazenamento
-
-2. **MinIO**:
-   - Serviço compatível com S3
-   - Armazenamento persistente via volumes
-   - Console web na porta 9001
-
-3. **Docker Compose**:
-   - Orquestra Flask e MinIO localmente
-   - Configura rede entre containers
-   - Gerencia volumes persistentes
-
-4. **Kubernetes**:
-   - Deploy em produção via EKS
-   - Escalabilidade horizontal
-   - Gerenciamento de configuração
-
-## 🚀 CI/CD Pipeline
-
-### GitHub Actions
-- Executa em push e pull requests
-- Testa a aplicação
+### Pipeline CI/CD
+- Jenkins: Executa testes e deploy
 - Verifica saúde dos serviços
-- Prepara para deploy
+- Testa o pipeline ETL
+- Deploy para Kubernetes (se na branch main)
 
-### Jenkins
-- Pipeline declarativo
-- Testes automatizados
-- Deploy para Kubernetes
-- Limpeza de workspace
+## 📈 Próximos Passos
 
-## 🔍 Endpoints da API
+1. Adicionar mais estados além de SP
+2. Implementar validação de dados
+3. Adicionar métricas de qualidade
+4. Expandir cobertura de testes
+5. Implementar monitoramento
 
-- `GET /`: Verifica se a API está online
-- `GET /health`: Verifica saúde da aplicação
-- `POST /upload`: Upload de arquivos para o MinIO
-
-## 🛡️ Segurança
-
-- Credenciais via variáveis de ambiente
-- Secrets no Kubernetes
-- Autenticação MinIO
-- HTTPS em produção
-
-## 📈 Monitoramento
-
-- Health checks implementados
-- Logs centralizados
-- Métricas de performance
-- Alertas configuráveis
-
-## 🚀 Deploy
-
-### Local
-```bash
-docker compose up -d
-```
-
-### Kubernetes
-```bash
-kubectl apply -f k8s/
-```
-
-## 🔧 Configuração
-
-### Variáveis de Ambiente
-```env
-MINIO_ROOT_USER=minioadmin
-MINIO_ROOT_PASSWORD=minioadmin
-AWS_ACCESS_KEY_ID=your_key
-AWS_SECRET_ACCESS_KEY=your_secret
-```
-
-### Kubernetes
-- Namespace: `default`
-- Replicas: 3 (Flask)
-- Storage: 10Gi (MinIO)
-
-## 🤝 Contribuindo
+## 🤝 Contribuição
 
 1. Fork o projeto
-2. Crie sua branch (`git checkout -b feature/AmazingFeature`)
-3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
-4. Push para a branch (`git push origin feature/AmazingFeature`)
-5. Abra um Pull Request
+2. Crie uma branch (`git checkout -b feature/nova-feature`)
+3. Commit suas mudanças (`git commit -am 'Adiciona nova feature'`)
+4. Push para a branch (`git push origin feature/nova-feature`)
+5. Crie um Pull Request
 
 ## 📝 Licença
 
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
-
-## 👥 Autores
-
-- **Pedro Santana** - *Desenvolvimento* - [pedrosantan4](https://github.com/pedrosantan4)
-- **Adryann Geovanny** - *Desenvolvimento* - [adryanngcosta](https://github.com/adryanngcosta)
-
-## 🙏 Agradecimentos
-
-- Equipe de DevOps
-- Comunidade Open Source
-- Documentação das tecnologias utilizadas 
+Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes. 
