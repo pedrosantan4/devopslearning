@@ -1,0 +1,73 @@
+# Logs
+logs/
+*.log
+etl.log
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+ENV/
+env/
+.env
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Airflow
+airflow.cfg
+airflow.db
+unittests.cfg
+airflow-webserver.pid
+webserver_config.py
+
+# MinIO
+minio_data/
+
+# Kubernetes
+kubeconfig
+*.kubeconfig
+
+# Arquivos temporários
+*.tmp
+*.temp
+=2.2,
+
+# Arquivos de output
+output/
+*.csv
+*.json
+!config/ceps.json
+
+# Arquivos de teste
+.coverage
+htmlcov/
+.pytest_cache/
+.tox/
+.nox/
+coverage.xml
+*.cover 
