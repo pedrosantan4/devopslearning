@@ -714,3 +714,66 @@ ModuleNotFoundError: No module named 'etl'
 [2025-05-01T00:55:14.218+0000] {logging_mixin.py:151} INFO - [2025-05-01T00:55:14.218+0000] {dag.py:2915} INFO - Sync 1 DAGs
 [2025-05-01T00:55:14.251+0000] {logging_mixin.py:151} INFO - [2025-05-01T00:55:14.251+0000] {dag.py:3696} INFO - Setting next_dagrun for cep_etl to 2025-05-01T00:25:22.218677+00:00, run_after=2025-05-02T00:25:22.218677+00:00
 [2025-05-01T00:55:14.278+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/cep_etl_dag.py took 0.721 seconds
+[2025-05-01T00:55:44.484+0000] {processor.py:157} INFO - Started process (PID=384) to work on /opt/airflow/dags/cep_etl_dag.py
+[2025-05-01T00:55:44.487+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/cep_etl_dag.py for tasks to queue
+[2025-05-01T00:55:44.488+0000] {logging_mixin.py:151} INFO - [2025-05-01T00:55:44.487+0000] {dagbag.py:539} INFO - Filling up the DagBag from /opt/airflow/dags/cep_etl_dag.py
+[2025-05-01T00:55:44.997+0000] {processor.py:839} INFO - DAG(s) dict_keys(['cep_etl']) retrieved from /opt/airflow/dags/cep_etl_dag.py
+[2025-05-01T00:55:45.029+0000] {logging_mixin.py:151} INFO - [2025-05-01T00:55:45.029+0000] {dag.py:2915} INFO - Sync 1 DAGs
+[2025-05-01T00:55:45.055+0000] {logging_mixin.py:151} INFO - [2025-05-01T00:55:45.055+0000] {dag.py:3696} INFO - Setting next_dagrun for cep_etl to 2025-05-01T00:25:22.218677+00:00, run_after=2025-05-02T00:25:22.218677+00:00
+[2025-05-01T00:55:45.080+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/cep_etl_dag.py took 0.601 seconds
+[2025-05-01T00:56:15.291+0000] {processor.py:157} INFO - Started process (PID=390) to work on /opt/airflow/dags/cep_etl_dag.py
+[2025-05-01T00:56:15.294+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/cep_etl_dag.py for tasks to queue
+[2025-05-01T00:56:15.296+0000] {logging_mixin.py:151} INFO - [2025-05-01T00:56:15.295+0000] {dagbag.py:539} INFO - Filling up the DagBag from /opt/airflow/dags/cep_etl_dag.py
+[2025-05-01T00:56:15.746+0000] {processor.py:839} INFO - DAG(s) dict_keys(['cep_etl']) retrieved from /opt/airflow/dags/cep_etl_dag.py
+[2025-05-01T00:56:15.785+0000] {logging_mixin.py:151} INFO - [2025-05-01T00:56:15.784+0000] {dag.py:2915} INFO - Sync 1 DAGs
+[2025-05-01T00:56:15.814+0000] {logging_mixin.py:151} INFO - [2025-05-01T00:56:15.814+0000] {dag.py:3696} INFO - Setting next_dagrun for cep_etl to 2025-05-01T00:25:22.218677+00:00, run_after=2025-05-02T00:25:22.218677+00:00
+[2025-05-01T00:56:15.850+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/cep_etl_dag.py took 0.563 seconds
+[2025-05-01T00:56:46.059+0000] {processor.py:157} INFO - Started process (PID=396) to work on /opt/airflow/dags/cep_etl_dag.py
+[2025-05-01T00:56:46.060+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/cep_etl_dag.py for tasks to queue
+[2025-05-01T00:56:46.061+0000] {logging_mixin.py:151} INFO - [2025-05-01T00:56:46.061+0000] {dagbag.py:539} INFO - Filling up the DagBag from /opt/airflow/dags/cep_etl_dag.py
+[2025-05-01T00:56:46.645+0000] {processor.py:839} INFO - DAG(s) dict_keys(['cep_etl']) retrieved from /opt/airflow/dags/cep_etl_dag.py
+[2025-05-01T00:56:46.683+0000] {logging_mixin.py:151} INFO - [2025-05-01T00:56:46.683+0000] {dag.py:2915} INFO - Sync 1 DAGs
+[2025-05-01T00:56:46.713+0000] {logging_mixin.py:151} INFO - [2025-05-01T00:56:46.713+0000] {dag.py:3696} INFO - Setting next_dagrun for cep_etl to 2025-05-01T00:25:22.218677+00:00, run_after=2025-05-02T00:25:22.218677+00:00
+[2025-05-01T00:56:46.744+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/cep_etl_dag.py took 0.690 seconds
+[2025-05-01T00:57:16.978+0000] {processor.py:157} INFO - Started process (PID=402) to work on /opt/airflow/dags/cep_etl_dag.py
+[2025-05-01T00:57:16.981+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/cep_etl_dag.py for tasks to queue
+[2025-05-01T00:57:16.982+0000] {logging_mixin.py:151} INFO - [2025-05-01T00:57:16.981+0000] {dagbag.py:539} INFO - Filling up the DagBag from /opt/airflow/dags/cep_etl_dag.py
+[2025-05-01T00:57:17.603+0000] {processor.py:839} INFO - DAG(s) dict_keys(['cep_etl']) retrieved from /opt/airflow/dags/cep_etl_dag.py
+[2025-05-01T00:57:17.638+0000] {logging_mixin.py:151} INFO - [2025-05-01T00:57:17.638+0000] {dag.py:2915} INFO - Sync 1 DAGs
+[2025-05-01T00:57:17.669+0000] {logging_mixin.py:151} INFO - [2025-05-01T00:57:17.668+0000] {dag.py:3696} INFO - Setting next_dagrun for cep_etl to 2025-05-01T00:25:22.218677+00:00, run_after=2025-05-02T00:25:22.218677+00:00
+[2025-05-01T00:57:17.702+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/cep_etl_dag.py took 0.730 seconds
+[2025-05-01T00:57:47.967+0000] {processor.py:157} INFO - Started process (PID=408) to work on /opt/airflow/dags/cep_etl_dag.py
+[2025-05-01T00:57:47.970+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/cep_etl_dag.py for tasks to queue
+[2025-05-01T00:57:47.971+0000] {logging_mixin.py:151} INFO - [2025-05-01T00:57:47.971+0000] {dagbag.py:539} INFO - Filling up the DagBag from /opt/airflow/dags/cep_etl_dag.py
+[2025-05-01T00:57:48.553+0000] {processor.py:839} INFO - DAG(s) dict_keys(['cep_etl']) retrieved from /opt/airflow/dags/cep_etl_dag.py
+[2025-05-01T00:57:48.589+0000] {logging_mixin.py:151} INFO - [2025-05-01T00:57:48.588+0000] {dag.py:2915} INFO - Sync 1 DAGs
+[2025-05-01T00:57:48.621+0000] {logging_mixin.py:151} INFO - [2025-05-01T00:57:48.621+0000] {dag.py:3696} INFO - Setting next_dagrun for cep_etl to 2025-05-01T00:25:22.218677+00:00, run_after=2025-05-02T00:25:22.218677+00:00
+[2025-05-01T00:57:48.650+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/cep_etl_dag.py took 0.688 seconds
+[2025-05-01T00:58:18.893+0000] {processor.py:157} INFO - Started process (PID=414) to work on /opt/airflow/dags/cep_etl_dag.py
+[2025-05-01T00:58:18.897+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/cep_etl_dag.py for tasks to queue
+[2025-05-01T00:58:18.898+0000] {logging_mixin.py:151} INFO - [2025-05-01T00:58:18.898+0000] {dagbag.py:539} INFO - Filling up the DagBag from /opt/airflow/dags/cep_etl_dag.py
+[2025-05-01T00:58:19.484+0000] {processor.py:839} INFO - DAG(s) dict_keys(['cep_etl']) retrieved from /opt/airflow/dags/cep_etl_dag.py
+[2025-05-01T00:58:19.520+0000] {logging_mixin.py:151} INFO - [2025-05-01T00:58:19.519+0000] {dag.py:2915} INFO - Sync 1 DAGs
+[2025-05-01T00:58:19.553+0000] {logging_mixin.py:151} INFO - [2025-05-01T00:58:19.553+0000] {dag.py:3696} INFO - Setting next_dagrun for cep_etl to 2025-05-01T00:25:22.218677+00:00, run_after=2025-05-02T00:25:22.218677+00:00
+[2025-05-01T00:58:19.581+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/cep_etl_dag.py took 0.692 seconds
+[2025-05-01T00:58:49.823+0000] {processor.py:157} INFO - Started process (PID=420) to work on /opt/airflow/dags/cep_etl_dag.py
+[2025-05-01T00:58:49.824+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/cep_etl_dag.py for tasks to queue
+[2025-05-01T00:58:49.825+0000] {logging_mixin.py:151} INFO - [2025-05-01T00:58:49.825+0000] {dagbag.py:539} INFO - Filling up the DagBag from /opt/airflow/dags/cep_etl_dag.py
+[2025-05-01T00:58:50.540+0000] {processor.py:839} INFO - DAG(s) dict_keys(['cep_etl']) retrieved from /opt/airflow/dags/cep_etl_dag.py
+[2025-05-01T00:58:50.585+0000] {logging_mixin.py:151} INFO - [2025-05-01T00:58:50.584+0000] {dag.py:2915} INFO - Sync 1 DAGs
+[2025-05-01T00:58:50.623+0000] {logging_mixin.py:151} INFO - [2025-05-01T00:58:50.623+0000] {dag.py:3696} INFO - Setting next_dagrun for cep_etl to 2025-05-01T00:25:22.218677+00:00, run_after=2025-05-02T00:25:22.218677+00:00
+[2025-05-01T00:58:50.660+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/cep_etl_dag.py took 0.842 seconds
+[2025-05-01T00:59:20.907+0000] {processor.py:157} INFO - Started process (PID=426) to work on /opt/airflow/dags/cep_etl_dag.py
+[2025-05-01T00:59:20.909+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/cep_etl_dag.py for tasks to queue
+[2025-05-01T00:59:20.910+0000] {logging_mixin.py:151} INFO - [2025-05-01T00:59:20.910+0000] {dagbag.py:539} INFO - Filling up the DagBag from /opt/airflow/dags/cep_etl_dag.py
+[2025-05-01T00:59:21.698+0000] {processor.py:839} INFO - DAG(s) dict_keys(['cep_etl']) retrieved from /opt/airflow/dags/cep_etl_dag.py
+[2025-05-01T00:59:21.754+0000] {logging_mixin.py:151} INFO - [2025-05-01T00:59:21.752+0000] {dag.py:2915} INFO - Sync 1 DAGs
+[2025-05-01T00:59:21.795+0000] {logging_mixin.py:151} INFO - [2025-05-01T00:59:21.795+0000] {dag.py:3696} INFO - Setting next_dagrun for cep_etl to 2025-05-01T00:25:22.218677+00:00, run_after=2025-05-02T00:25:22.218677+00:00
+[2025-05-01T00:59:21.841+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/cep_etl_dag.py took 0.941 seconds
+[2025-05-01T00:59:52.080+0000] {processor.py:157} INFO - Started process (PID=432) to work on /opt/airflow/dags/cep_etl_dag.py
+[2025-05-01T00:59:52.083+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/cep_etl_dag.py for tasks to queue
+[2025-05-01T00:59:52.084+0000] {logging_mixin.py:151} INFO - [2025-05-01T00:59:52.084+0000] {dagbag.py:539} INFO - Filling up the DagBag from /opt/airflow/dags/cep_etl_dag.py
+[2025-05-01T00:59:52.608+0000] {processor.py:839} INFO - DAG(s) dict_keys(['cep_etl']) retrieved from /opt/airflow/dags/cep_etl_dag.py
+[2025-05-01T00:59:52.639+0000] {logging_mixin.py:151} INFO - [2025-05-01T00:59:52.638+0000] {dag.py:2915} INFO - Sync 1 DAGs
+[2025-05-01T00:59:52.672+0000] {logging_mixin.py:151} INFO - [2025-05-01T00:59:52.672+0000] {dag.py:3696} INFO - Setting next_dagrun for cep_etl to 2025-05-01T00:25:22.218677+00:00, run_after=2025-05-02T00:25:22.218677+00:00
+[2025-05-01T00:59:52.699+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/cep_etl_dag.py took 0.623 seconds
